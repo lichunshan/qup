@@ -1,7 +1,9 @@
 var qiniu = require('qiniu');
 var path = require('path');
 var pkg = require('../package.json');
+var fs = require('fs');
 var configFileName = pkg.name + ".config.js";
+var refreshMap = [];
 function deleteFile(bucketManager, bucket, key){
   bucketManager.delete(bucket, key, function(err, respBody, respInfo) {
     if (err) {
@@ -27,7 +29,18 @@ function getKeyLists(bucketManager, bucket, key, deleteFileCallBack){
       var items = respBody.items;
       items.forEach(function(item) {
         // console.log(item.key);
+        refreshMap.push(`"${item.key}"`);
         deleteFileCallBack(bucketManager, bucket, item.key);
+      });
+      var mapFile = `module.exports = [${refreshMap}]`;
+      var file_map_path = path.join(__dirname,'../', '/refreshmap/file_map.js');
+      fs.unlinkSync(file_map_path);
+      fs.writeFile(file_map_path, mapFile, {
+        flag: 'a'
+      },function(err){
+        if(err){
+          console.log(err);
+        }
       });
     } else {
       console.log(respInfo.statusCode);
