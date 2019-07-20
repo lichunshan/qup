@@ -4,7 +4,8 @@ var yargs = require('yargs');
 var argv = yargs.alias({
   "v": "version",
   "u": "upload",
-  "d": "delete"
+  "d": "delete",
+  "r": "refresh"
 }).argv;
 var fs = require('fs');
 var path = require('path');
@@ -12,6 +13,7 @@ var qiniuUploader = require('qiniu-qupload');
 var rootDir = process.cwd();
 var upload = require('./upload');
 var deleteFile = require('./delete');
+var refresh = require('./refresh');
 var pkg = require('./package.json');
 var configFileName = pkg.name + ".config.js";
 
@@ -41,6 +43,7 @@ if(argv.init){
       "src_dir"       : ['rootPath'],
       "key_prefix"    : "",
       "zone": "z0",
+      "dirsToRefresh": [],
       "options": {
         scope: "bucket"
       }
@@ -58,4 +61,8 @@ if(haveConfigFile && argv.upload){
 }
 if(haveConfigFile && argv.delete){
   deleteFile();
+}
+if(haveConfigFile && argv.refresh){
+  refresh();
+  console.log('刷新');
 }
