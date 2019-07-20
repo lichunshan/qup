@@ -2,12 +2,10 @@ var qiniu = require('qiniu');
 var fs = require('fs');
 var rootDir = process.cwd();
 var path = require('path');
-var rootConf = require(path.join(process.cwd(),'hello.config.js'));
-// 要上传的文件夹根目录
-var filePaths = rootConf.src_dir.map(function(item){
-  return path.join(rootDir,item);
-})
-var keyPreFix = rootConf.key_prefix;
+var pkg = require('../package.json');
+var configFileName = pkg.name + ".config.js";
+
+
 function uploadFile(localFile, token, config, rootPath){
   var formUploader = new qiniu.form_up.FormUploader(config);
   var putExtra = new qiniu.form_up.PutExtra();
@@ -42,6 +40,12 @@ function uploadDirectory(dirPath, uploadToken, config, rootDir){
   })
 }
 module.exports = function(){
+  var rootConf = require(path.join(process.cwd(),configFileName));
+  // 要上传的文件夹根目录
+  var filePaths = rootConf.src_dir.map(function(item){
+    return path.join(rootDir,item);
+  })
+  var keyPreFix = rootConf.key_prefix;
   var accessKey = rootConf.ak;
   var secretKey = rootConf.sk;
   var options = rootConf.options;

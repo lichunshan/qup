@@ -13,7 +13,7 @@ var rootDir = process.cwd();
 var upload = require('./upload');
 var deleteFile = require('./delete');
 var pkg = require('./package.json');
-var configFileName = pkg.name.replace('@lichunshan/','') + ".config.js";
+var configFileName = pkg.name + ".config.js";
 
 //检查配置文件是否存在
 function checkFileExist(fileName){

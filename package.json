@@ -1,7 +1,7 @@
 {
-  "name": "qup",
+  "name": "qnup",
   "bin": {
-    "qup": "index.js"
+    "qnup": "index.js"
   },
   "dependencies": {
     "global": "^4.4.0",
