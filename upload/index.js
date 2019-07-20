@@ -6,7 +6,7 @@ var pkg = require('../package.json');
 var configFileName = pkg.name + ".config.js";
 
 
-function uploadFile(localFile, token, config, rootPath){
+function uploadFile(localFile, token, config, rootPath, keyPreFix){
   var formUploader = new qiniu.form_up.FormUploader(config);
   var putExtra = new qiniu.form_up.PutExtra();
   var key=localFile.replace(rootPath,keyPreFix).replace(/\\/g, '/');
@@ -24,7 +24,7 @@ function uploadFile(localFile, token, config, rootPath){
   });
 }
 
-function uploadDirectory(dirPath, uploadToken, config, rootDir){
+function uploadDirectory(dirPath, uploadToken, config, rootDir, keyPreFix){
   // 读取设定的目录
   var files = fs.readdirSync(dirPath);
   files.forEach(function(item, index){
@@ -32,9 +32,9 @@ function uploadDirectory(dirPath, uploadToken, config, rootDir){
     fs.stat(uriPath, function(err, stats){
       if (err) throw err;
       if(stats.isDirectory()){
-        uploadDirectory(uriPath, uploadToken, config, rootDir);
+        uploadDirectory(uriPath, uploadToken, config, rootDir, keyPreFix);
       } else {
-        uploadFile(uriPath, uploadToken, config, rootDir);
+        uploadFile(uriPath, uploadToken, config, rootDir, keyPreFix);
       }
     });
   })
@@ -57,6 +57,6 @@ module.exports = function(){
 
 
   filePaths.forEach(function(rootPath){
-    uploadDirectory(rootPath, uploadToken, config, rootPath);
+    uploadDirectory(rootPath, uploadToken, config, rootPath, keyPreFix);
   })
 }
