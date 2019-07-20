@@ -1,0 +1,21 @@
+{
+  "name": "qup",
+  "bin": {
+    "qup": "index.js"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "npm": "6.0",
+    "qiniu": "^7.2.2",
+    "qiniu-qupload": "^1.0.6",
+    "shelljs": "^0.8.3",
+    "yargs": "^13.3.0"
+  },
+  "description": "qiniu file upload cli",
+  "keywords": [
+    "qiniu"
+  ],
+  "version": "1.0.2",
+  "author": "lichunshan <2375974889@qq.com>",
+  "license": "ISC"
+}
