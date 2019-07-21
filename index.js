@@ -1,5 +1,4 @@
 #! /usr/bin/env node
-var shell = require('shelljs');
 var yargs = require('yargs');
 var argv = yargs.alias({
   "v": "version",
@@ -9,7 +8,6 @@ var argv = yargs.alias({
 }).argv;
 var fs = require('fs');
 var path = require('path');
-var qiniuUploader = require('qiniu-qupload');
 var rootDir = process.cwd();
 var upload = require('./upload');
 var deleteFile = require('./delete');

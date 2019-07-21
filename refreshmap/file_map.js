@@ -1,1 +1,0 @@
-module.exports = ["static/qnup.config.js","static/qq.jpg"]
