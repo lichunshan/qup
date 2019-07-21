@@ -1,8 +1,11 @@
+vnote_backup_file_826537664 C:/Users/lichunshan/Desktop/qup/README.md
 ## Install
 
 `npm install qnup -g`
 
 ## Usage
+
+qnup --help 查看所有命令
 
 qnup -v  查看版本号
 

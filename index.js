@@ -64,5 +64,4 @@ if(haveConfigFile && argv.delete){
 }
 if(haveConfigFile && argv.refresh){
   refresh();
-  console.log('刷新');
 }
