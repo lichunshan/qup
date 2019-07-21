@@ -54,7 +54,6 @@ if(argv.init){
 }
 // 执行上传逻辑
 if(haveConfigFile && argv.upload){
-  console.log('up');
   upload();
 }
 if(haveConfigFile && argv.delete){

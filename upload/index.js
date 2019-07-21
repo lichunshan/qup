@@ -1,10 +1,11 @@
 var qiniu = require('qiniu');
 var fs = require('fs');
+var os = require('os');
+var platform = os.platform();
 var rootDir = process.cwd();
 var path = require('path');
 var pkg = require('../package.json');
 var configFileName = pkg.name + ".config.js";
-
 
 function uploadFile(localFile, token, config, rootPath, keyPreFix){
   var formUploader = new qiniu.form_up.FormUploader(config);
@@ -28,7 +29,7 @@ function uploadDirectory(dirPath, uploadToken, config, rootDir, keyPreFix){
   // 读取设定的目录
   var files = fs.readdirSync(dirPath);
   files.forEach(function(item, index){
-    var uriPath = `${dirPath}\\${item}`;
+    var uriPath = platform === 'linux' ? `${dirPath}/${item}` : `${dirPath}\\${item}`;
     fs.stat(uriPath, function(err, stats){
       if (err) throw err;
       if(stats.isDirectory()){
